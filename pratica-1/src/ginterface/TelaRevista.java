@@ -1,9 +1,14 @@
 package ginterface;
 
-import java.awt.EventQueue;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.awt.event.ActionEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import domain.Material;
+import domain.Revista;
 
 public class TelaRevista extends TelaIncluirBase {
     private JLabel nroLabel;
@@ -11,7 +16,7 @@ public class TelaRevista extends TelaIncluirBase {
     private JLabel anoLabel;
     private JTextField anoTextField;
 
-    public TelaRevista() {
+    public TelaRevista(List<Material> list) {
         super("Revistas", "Livros", "Titulo", "Org.", "Vol.");
 
         nroLabel = new JLabel("Nro.:");
@@ -23,7 +28,7 @@ public class TelaRevista extends TelaIncluirBase {
 		contentPane.add(nroTextField);
 		nroTextField.setColumns(10);
         
-        anoLabel = new JLabel("Ano.:");
+        anoLabel = new JLabel("Ano:");
 		anoLabel.setBounds(330, 130, 70, 20);
 		contentPane.add(anoLabel);
         
@@ -31,16 +36,27 @@ public class TelaRevista extends TelaIncluirBase {
 		anoTextField.setBounds(390, 130, 50, 26);
 		contentPane.add(anoTextField);
 		anoTextField.setColumns(10);
-    }
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaRevista frame = new TelaRevista();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+		addButton.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent e){
+				String titulo = firstTextField.getText();
+				String org = secondTextField.getText();
+				String vol = thirdTextField.getText();
+				String nro = nroTextField.getText();
+				String ano = anoTextField.getText();
+				try{
+					Revista r = new Revista(titulo, org, vol, nro, ano);
+					list.add(r);
+
+					successPanel("Revista adicionada com sucesso!");
+
+					firstTextField.setText("");
+					secondTextField.setText("");
+					thirdTextField.setText("");
+					nroTextField.setText("");
+					anoTextField.setText("");
+				} catch (Exception exc) {
+					errorPanel(exc.getMessage());
 				}
 			}
 		});

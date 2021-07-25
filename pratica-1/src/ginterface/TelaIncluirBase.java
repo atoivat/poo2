@@ -1,7 +1,5 @@
 package ginterface;
 
-import java.awt.EventQueue;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -68,16 +66,11 @@ public class TelaIncluirBase extends TelaBase {
 
     }
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaIncluirBase frame = new TelaIncluirBase("Teste", "Trocar", "Texto1", "Texto2", "Texto3");
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-    }
+	public JButton getToggleButton() {
+		return toggleButton;
+	}
+
+	public JButton getListButton() {
+		return listButton;
+	}
 }

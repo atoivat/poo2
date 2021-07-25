@@ -3,7 +3,7 @@ package domain;
 public class Livro extends Material{
     private String autor;
 
-    public Livro(String titulo, String autor, int ano) throws IllegalArgumentException {
+    public Livro(String titulo, String autor, String ano) throws IllegalArgumentException {
         super(titulo, ano);
         setAutor(autor);
     }
@@ -14,7 +14,7 @@ public class Livro extends Material{
     
     public void setAutor(String autor) {
         if(autor == null || autor.isBlank()){
-            throw new IllegalArgumentException("Invalid argument 'autor'");
+            throw new IllegalArgumentException("Argumento inválido 'autor'");
         }
         this.autor = autor;
     }
@@ -24,35 +24,36 @@ public class Livro extends Material{
     }
 
     public static void main(String[] args) {
+        // Testes básicos de exceptions
         try {
-            new Livro("teste", "", 2012);
+            new Livro("teste", "", "2012");
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());
         }
 
         try {
-            new Livro("", "teste", 2012);
+            new Livro("", "teste", "2012");
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());
         }
 
         try {
-            new Livro("teste", "    ", 2012);
+            new Livro("teste", "    ", "2012");
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());
         }
 
         try {
-            new Livro("teste", "teste", 0);
+            new Livro("teste", "teste", "");
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());
         }
         
-        Livro b = new Livro("teste", "teste", 2012);
+        Livro b = new Livro("teste", "teste", "2012");
         System.out.println("SUCCESS: " + b);
     }   
 }

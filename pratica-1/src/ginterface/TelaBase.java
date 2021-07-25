@@ -49,10 +49,6 @@ public class TelaBase extends JFrame {
 		JOptionPane.showMessageDialog(this, msg, "ERROR", JOptionPane.ERROR_MESSAGE);
 	}
 
-	public void warningPanel(String msg) {
-		JOptionPane.showMessageDialog(this, msg, "WARNING", JOptionPane.WARNING_MESSAGE);
-	}
-
 	public void successPanel(String msg) {
 		JOptionPane.showMessageDialog(this, msg, "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
 	}

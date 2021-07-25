@@ -5,7 +5,7 @@ public class Revista extends Material{
     private int vol;
     private int nro;
 
-    public Revista(String titulo, String org, int vol, int nro, int ano) throws IllegalArgumentException {
+    public Revista(String titulo, String org, String vol, String nro, String ano) throws IllegalArgumentException {
         super(titulo, ano);
         setOrg(org);
         setVol(vol);
@@ -18,7 +18,7 @@ public class Revista extends Material{
     
     public void setOrg(String org) {
         if(org == null || org.isBlank()){
-            throw new IllegalArgumentException("Invalid argument 'org'");
+            throw new IllegalArgumentException("Argumento inválido 'org'");
         }
         this.org = org;
     }
@@ -27,22 +27,35 @@ public class Revista extends Material{
         return vol;
     }
 
-    public void setVol(int vol) {
-        if(vol <= 0) {
-            throw new IllegalArgumentException("Invalid argument 'vol'");
+    public void setVol(String vol) {
+        int intVol;
+        try{
+            intVol = Integer.parseInt(vol);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Argumento inválido 'vol'");
         }
-        this.vol = vol;
+
+        if(intVol <= 0) {
+            throw new IllegalArgumentException("Argumento inválido 'vol'");
+        }
+        this.vol = intVol;
     }
 
     public int getNro() {
         return nro;
     }
 
-    public void setNro(int nro) {
-        if(nro <= 0) {
-            throw new IllegalArgumentException("Invalid argument 'nro'");
+    public void setNro(String nro) {
+        int intNro;
+        try{
+            intNro = Integer.parseInt(nro);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Argumento inválido 'nro'");
         }
-        this.nro = nro;
+        if(intNro <= 0) {
+            throw new IllegalArgumentException("Argumento inválido 'nro'");
+        }
+        this.nro = intNro;
     }
 
     public String toString() {
@@ -50,28 +63,29 @@ public class Revista extends Material{
     }
 
     public static void main(String[] args) {
+        // Testes básicos de exceptions
         try {
-            new Revista("titulo", " ", 1, 1, 2012);
+            new Revista("titulo", " ", "1", "1", "2012");
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());
         }
 
         try {
-            new Revista("titulo", "org", 0, 1, 2012);
+            new Revista("titulo", "org", "", "1", "2012");
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());
         }
 
         try {
-            new Revista("titulo", "org", 1, 0, 2012);
+            new Revista("titulo", "org", "1", "", "2012");
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());
         }
 
-        Revista b = new Revista("titulo", "org", 1, 1, 2012);
+        Revista b = new Revista("titulo", "org", "1", "1", "2012");
         System.out.println("SUCCESS: " + b);
     }   
 }
