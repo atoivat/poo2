@@ -1,38 +1,38 @@
 package domain;
 
 public class Material {
-    private String title;
-    private int year;
+    private String titulo;
+    private int ano;
 
-    public Material(String title, int year) throws IllegalArgumentException {
-        setTitle(title);
-        setYear(year);
+    public Material(String titulo, int ano) throws IllegalArgumentException {
+        setTitulo(titulo);
+        setAno(ano);
     }
     
-    public String getTitle() {
-        return title;
+    public String getTitulo() {
+        return titulo;
     }
     
-    public void setTitle(String title) {
-        if(title == null || title.isBlank()) {
-            throw new IllegalArgumentException("Invalid argument 'title'");
+    public void setTitulo(String titulo) {
+        if(titulo == null || titulo.isBlank()) {
+            throw new IllegalArgumentException("Invalid argument 'titulo'");
         }
-        this.title = title;
+        this.titulo = titulo;
     }
     
-    public int getYear() {
-        return year;
+    public int getAno() {
+        return ano;
     }
     
-    public void setYear(int year) {
-        if(year <= 0) {
-            throw new IllegalArgumentException("Invalid argument 'year'");
+    public void setAno(int ano) {
+        if(ano <= 0) {
+            throw new IllegalArgumentException("Invalid argument 'ano'");
         }
-        this.year = year;
+        this.ano = ano;
     }
 
     public String toString() {
-        return "Material [title=" + title + ", year=" + year + "]";
+        return "Material [titulo=" + titulo + ", ano=" + ano + "]";
     }
     
     public static void main(String[] args) {

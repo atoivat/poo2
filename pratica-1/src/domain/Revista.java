@@ -1,12 +1,12 @@
 package domain;
 
-public class Magazine extends Material{
+public class Revista extends Material{
     private String org;
     private int vol;
     private int nro;
 
-    public Magazine(String title, String org, int vol, int nro, int year) throws IllegalArgumentException {
-        super(title, year);
+    public Revista(String titulo, String org, int vol, int nro, int ano) throws IllegalArgumentException {
+        super(titulo, ano);
         setOrg(org);
         setVol(vol);
         setNro(nro);
@@ -45,29 +45,33 @@ public class Magazine extends Material{
         this.nro = nro;
     }
 
+    public String toString() {
+        return "Revista [titulo=" + this.getTitulo() + ", org=" + org + ", nro=" + nro + ", vol=" + vol + ", ano=" + this.getAno() + "]";
+    }
+
     public static void main(String[] args) {
         try {
-            Magazine b = new Magazine("title", " ", 1, 1, 2012);
+            Revista b = new Revista("titulo", " ", 1, 1, 2012);
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());
         }
 
         try {
-            Magazine b = new Magazine("title", "org", 0, 1, 2012);
+            Revista b = new Revista("titulo", "org", 0, 1, 2012);
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());
         }
 
         try {
-            Magazine b = new Magazine("title", "org", 1, 0, 2012);
+            Revista b = new Revista("titulo", "org", 1, 0, 2012);
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());
         }
 
-        Magazine b = new Magazine("title", "org", 1, 1, 2012);
+        Revista b = new Revista("titulo", "org", 1, 1, 2012);
         System.out.println("SUCCESS: " + b);
     }   
 }
