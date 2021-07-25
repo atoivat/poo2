@@ -37,28 +37,28 @@ public class Material {
     
     public static void main(String[] args) {
         try {
-            Material m = new Material("", 2012);
+            new Material("", 2012);
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());
         }
         
         try {
-            Material m = new Material("    ", 2012);
+            new Material("    ", 2012);
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());
         }
 
         try {
-            Material m = new Material(null, 2012);
+            new Material(null, 2012);
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());
         }
 
         try {
-            Material m = new Material("teste", 0);
+            new Material("teste", 0);
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());

@@ -51,21 +51,21 @@ public class Revista extends Material{
 
     public static void main(String[] args) {
         try {
-            Revista b = new Revista("titulo", " ", 1, 1, 2012);
+            new Revista("titulo", " ", 1, 1, 2012);
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());
         }
 
         try {
-            Revista b = new Revista("titulo", "org", 0, 1, 2012);
+            new Revista("titulo", "org", 0, 1, 2012);
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());
         }
 
         try {
-            Revista b = new Revista("titulo", "org", 1, 0, 2012);
+            new Revista("titulo", "org", 1, 0, 2012);
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());

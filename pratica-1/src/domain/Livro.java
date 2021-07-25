@@ -19,35 +19,34 @@ public class Livro extends Material{
         this.autor = autor;
     }
 
-    @Override
     public String toString() {
         return "Livro [titulo=" + this.getTitulo() + ", autor=" + autor + ", ano=" + this.getAno() + "]";
     }
 
     public static void main(String[] args) {
         try {
-            Livro b = new Livro("teste", "", 2012);
+            new Livro("teste", "", 2012);
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());
         }
 
         try {
-            Livro b = new Livro("", "teste", 2012);
+            new Livro("", "teste", 2012);
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());
         }
 
         try {
-            Livro b = new Livro("teste", "    ", 2012);
+            new Livro("teste", "    ", 2012);
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());
         }
 
         try {
-            Livro b = new Livro("teste", "teste", 0);
+            new Livro("teste", "teste", 0);
         }
         catch (IllegalArgumentException e){
             System.out.println("SUCCESS: " + e.getMessage());
