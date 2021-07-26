@@ -17,10 +17,7 @@ public class Revista extends Material{
     }
     
     public void setOrg(String org) {
-        if(org == null || org.isBlank()){
-            throw new IllegalArgumentException("Argumento inválido 'org'");
-        }
-        this.org = org;
+        this.org = validateString(org, "org");
     }
 
     public int getVol() {
@@ -28,17 +25,7 @@ public class Revista extends Material{
     }
 
     public void setVol(String vol) {
-        int intVol;
-        try{
-            intVol = Integer.parseInt(vol);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Argumento inválido 'vol'");
-        }
-
-        if(intVol <= 0) {
-            throw new IllegalArgumentException("Argumento inválido 'vol'");
-        }
-        this.vol = intVol;
+        this.vol = validadeInteger(vol, "vol");
     }
 
     public int getNro() {
@@ -46,16 +33,7 @@ public class Revista extends Material{
     }
 
     public void setNro(String nro) {
-        int intNro;
-        try{
-            intNro = Integer.parseInt(nro);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Argumento inválido 'nro'");
-        }
-        if(intNro <= 0) {
-            throw new IllegalArgumentException("Argumento inválido 'nro'");
-        }
-        this.nro = intNro;
+        this.nro = validadeInteger(nro, "nro");
     }
 
     public String toString() {

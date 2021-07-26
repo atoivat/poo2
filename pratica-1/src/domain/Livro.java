@@ -13,10 +13,7 @@ public class Livro extends Material{
     }
     
     public void setAutor(String autor) {
-        if(autor == null || autor.isBlank()){
-            throw new IllegalArgumentException("Argumento inválido 'autor'");
-        }
-        this.autor = autor;
+        this.autor = validateString(autor, "autor");
     }
 
     public String toString() {

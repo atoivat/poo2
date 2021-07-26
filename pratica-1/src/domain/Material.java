@@ -14,10 +14,7 @@ public class Material {
     }
     
     public void setTitulo(String titulo) {
-        if(titulo == null || titulo.isBlank()) {
-            throw new IllegalArgumentException("Argumento inválido 'titulo'");
-        }
-        this.titulo = titulo;
+        this.titulo = validateString(titulo, "título");
     }
     
     public int getAno() {
@@ -25,20 +22,31 @@ public class Material {
     }
     
     public void setAno(String ano) {
-        int intAno;
-        try{
-            intAno = Integer.parseInt(ano);
-        } catch(Exception e) {
-            throw new IllegalArgumentException("Argumento inválido 'ano'");
-        }
-        if(intAno <= 0) {
-            throw new IllegalArgumentException("Argumento inválido 'ano'");
-        }
-        this.ano = intAno;
+        this.ano = validadeInteger(ano, "ano");
     }
 
     public String toString() {
         return "Material [titulo=" + titulo + ", ano=" + ano + "]";
+    }
+
+    public static int validadeInteger(String integerString, String attrName) throws IllegalArgumentException {
+        int integer;
+        try{
+            integer = Integer.parseInt(integerString);
+        } catch(Exception e) {
+            throw new IllegalArgumentException("Argumento inválido '" + attrName + "'");
+        }
+        if(integer <= 0) {
+            throw new IllegalArgumentException("Argumento inválido '" + attrName + "'");
+        }
+        return integer;
+    }
+
+    public static String validateString(String toValidade, String attrName) throws IllegalArgumentException {
+        if(toValidade == null || toValidade.isBlank()) {
+            throw new IllegalArgumentException("Argumento inválido '" + attrName + "'");
+        }
+        return toValidade.strip();
     }
     
     public static void main(String[] args) {
