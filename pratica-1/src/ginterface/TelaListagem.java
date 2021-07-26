@@ -19,7 +19,6 @@ public class TelaListagem extends TelaBase {
         textArea = new JTextArea(50, 50);
 		textArea.setBounds(10, 70, 580, 220);
 		contentPane.add(textArea);
-		// textArea.setRows(50);
 		textArea.setColumns(10);
 
         scrollPane = new JScrollPane(textArea);
