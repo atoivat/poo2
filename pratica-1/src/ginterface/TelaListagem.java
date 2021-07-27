@@ -17,9 +17,9 @@ public class TelaListagem extends TelaBase {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
         textArea = new JTextArea(50, 50);
-		textArea.setBounds(10, 70, 580, 220);
-		contentPane.add(textArea);
-		textArea.setColumns(10);
+        textArea.setBounds(10, 70, 580, 220);
+        contentPane.add(textArea);
+        textArea.setColumns(10);
 
         scrollPane = new JScrollPane(textArea);
         scrollPane.setBounds(10, 70, 580, 190);

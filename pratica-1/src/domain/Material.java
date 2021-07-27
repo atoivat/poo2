@@ -48,38 +48,4 @@ public class Material {
         }
         return toValidade.strip();
     }
-    
-    public static void main(String[] args) {
-        // Testes básicos de exceptions
-        try {
-            new Material("", "2012");
-        }
-        catch (IllegalArgumentException e){
-            System.out.println("SUCCESS: " + e.getMessage());
-        }
-        
-        try {
-            new Material("    ", "2012");
-        }
-        catch (IllegalArgumentException e){
-            System.out.println("SUCCESS: " + e.getMessage());
-        }
-
-        try {
-            new Material(null, "2012");
-        }
-        catch (IllegalArgumentException e){
-            System.out.println("SUCCESS: " + e.getMessage());
-        }
-
-        try {
-            new Material("teste", "");
-        }
-        catch (IllegalArgumentException e){
-            System.out.println("SUCCESS: " + e.getMessage());
-        }
-        
-        Material m = new Material("teste", "2012");
-        System.out.println("SUCCESS: " + m);
-    }
 }

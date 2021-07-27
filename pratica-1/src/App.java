@@ -17,25 +17,25 @@ public class App {
         App app = new App();
         app.iLivro.setVisible(true);
         app.iLivro.getToggleButton().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				app.iLivro.setVisible(false);
-				app.iRevista.setVisible(true);
-			}
-		});
+            public void actionPerformed(ActionEvent e) {
+                app.iLivro.setVisible(false);
+                app.iRevista.setVisible(true);
+            }
+        });
         app.iRevista.getToggleButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 app.iRevista.setVisible(false);
-				app.iLivro.setVisible(true);
-			}
-		});
+                app.iLivro.setVisible(true);
+            }
+        });
         
         ActionListener listagemActionListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 app.iListagem.setDisplay(app.list);
                 app.iListagem.setVisible(true);
                 app.iListagem.repaint();
-			}
-		};
+            }
+        };
 
         app.iRevista.getListButton().addActionListener(listagemActionListener);
         app.iLivro.getListButton().addActionListener(listagemActionListener);

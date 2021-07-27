@@ -12,24 +12,24 @@ public class TelaLivro extends TelaIncluirBase {
     public TelaLivro(List<Material> list) {
         super("Livros", "Revistas", "Titulo", "Autor", "Ano");
 
-		addButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){
-				String titulo = firstTextField.getText();
-				String autor = secondTextField.getText();
-				String ano = thirdTextField.getText();
-				try{
-					Livro l = new Livro(titulo, autor, ano);
-					list.add(l);
+        addButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                String titulo = firstTextField.getText();
+                String autor = secondTextField.getText();
+                String ano = thirdTextField.getText();
+                try{
+                    Livro l = new Livro(titulo, autor, ano);
+                    list.add(l);
 
-					successPanel("Livro adicionado com sucesso!");
+                    successPanel("Livro adicionado com sucesso!");
 
-					firstTextField.setText("");
-					secondTextField.setText("");
-					thirdTextField.setText("");
-				} catch (Exception exc) {
-					errorPanel(exc.getMessage());
-				}
-			}
-		});
+                    firstTextField.setText("");
+                    secondTextField.setText("");
+                    thirdTextField.setText("");
+                } catch (Exception exc) {
+                    errorPanel(exc.getMessage());
+                }
+            }
+        });
     }
 }
