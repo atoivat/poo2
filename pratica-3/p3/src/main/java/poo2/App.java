@@ -17,14 +17,14 @@ import poo2.repository.LivroRepository;
 import poo2.repository.RevistaRepository;
 
 public class App {
-    EntityManagerFactory entityManagerFactoryLivro = Persistence.createEntityManagerFactory("Livro");
-    EntityManager entityManagerLivro = entityManagerFactoryLivro.createEntityManager();
+    private EntityManagerFactory entityManagerFactoryLivro = Persistence.createEntityManagerFactory("Livro");
+    private EntityManager entityManagerLivro = entityManagerFactoryLivro.createEntityManager();
     
-    EntityManagerFactory entityManagerFactoryRevista = Persistence.createEntityManagerFactory("Revista");
-    EntityManager entityManagerRevista = entityManagerFactoryRevista.createEntityManager();
+    private EntityManagerFactory entityManagerFactoryRevista = Persistence.createEntityManagerFactory("Revista");
+    private EntityManager entityManagerRevista = entityManagerFactoryRevista.createEntityManager();
 
-    LivroRepository livroRepository = new LivroRepository(entityManagerLivro);
-    RevistaRepository revistaRepository = new RevistaRepository(entityManagerRevista);
+    private LivroRepository livroRepository = new LivroRepository(entityManagerLivro);
+    private RevistaRepository revistaRepository = new RevistaRepository(entityManagerRevista);
 
 
     private TelaLivro iLivro = new TelaLivro(livroRepository);
