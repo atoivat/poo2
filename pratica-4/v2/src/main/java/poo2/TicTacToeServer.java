@@ -6,18 +6,30 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.IOException;
 import java.util.Formatter;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.Condition;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
+import poo2.entity.Game;
+import poo2.repository.GameRepository;
+
 public class TicTacToeServer extends JFrame 
 {
+   private EntityManagerFactory entityManagerFactoryGame = Persistence.createEntityManagerFactory("Game");
+   private EntityManager entityManagerGame = entityManagerFactoryGame.createEntityManager();
+   private GameRepository gameRepository = new GameRepository(entityManagerGame);
+
    private String[] board = new String[ 9 ]; // tic-tac-toe board
    private JTextArea outputArea; // for outputting moves
    private Player[] players; // array of Players
@@ -211,6 +223,49 @@ public class TicTacToeServer extends JFrame
       displayMessage("\nGame Over: Player " + MARKS[player] + " won.");
    }
 
+   public void saveGame( String key, int playerNumber ){
+      boolean saved = false;
+      Optional<Game> existing = gameRepository.findByKey(key);
+      if(existing.isEmpty()){
+         String gameState = "";
+         for(String position: board){
+            if(position.equals("")){
+               gameState += "-";
+            }else{
+               gameState += position;
+            }
+         }
+         Game newGame = new Game(key, gameState, playerNumber);
+         gameRepository.save(newGame);
+         saved = true;
+      }
+      players[playerNumber].sendSaveInformation(saved, key, true);
+      players[ ( playerNumber + 1 ) % 2 ].sendSaveInformation(saved, key, false);
+   }
+
+   public void loadGame( String key, int playerNumber ){
+      boolean loaded = false;
+      Optional<Game> gameAtempt = gameRepository.findByKey(key);
+      String gameState = null;
+      if(!gameAtempt.isEmpty()){
+         // load game
+         Game game = gameAtempt.get();
+         gameState = game.getState();
+
+         for(int i = 0; i < 9; i++){
+            if(gameState.charAt(i) == '-'){
+               board[i] = "";
+            }else{
+               board[i] = Character.toString(gameState.charAt(i));
+            }
+         }
+         currentPlayer = game.getCurrent_player();
+         loaded = true;
+      }
+      players[playerNumber].sendLoadInformation(loaded, key, true, gameState, MARKS[ currentPlayer ]);
+      players[ ( playerNumber + 1 ) % 2 ].sendLoadInformation(loaded, key, false, gameState, MARKS[ currentPlayer ]);
+   }
+
    // private inner class Player manages each Player as a runnable
    private class Player implements Runnable 
    {
@@ -256,6 +311,42 @@ public class TicTacToeServer extends JFrame
             output.format( "You lose... :(\n" );
             output.flush(); // flush output
          }
+      }
+
+      public void sendSaveInformation(boolean saved, String key, boolean calledByThisPlayer){
+         String msg;
+         if(saved){
+            msg = "Successfully saved game state with key: " + key + "\n";
+         }else if(calledByThisPlayer){
+            msg = "Invalid key! Try another one...\n";
+         }else{
+            msg = "The other player tried to save, but failed.\n";
+         }
+         output.format(msg);
+         output.flush();
+      }
+      
+      public void sendLoadInformation(
+         boolean loaded, 
+         String key, 
+         boolean calledByThisPlayer, 
+         String gameState,
+         String playerMark
+      ){
+         String msg;
+         if(loaded){
+            output.format("Game loaded\n");
+            output.format("%s\n", gameState);
+            output.format("%s\n", playerMark);
+            output.flush();
+            msg = "Successfully loaded game state with key: " + key + "\n";
+         }else if(calledByThisPlayer){
+            msg = "Invalid key! Try another one...\n";
+         }else{
+            msg = "The other player tried to load a game, but failed.\n";
+         }
+         output.format(msg);
+         output.flush();
       }
 
       // control thread's execution
@@ -313,8 +404,14 @@ public class TicTacToeServer extends JFrame
                   received = input.nextLine(); // get move location
                   try{
                      location = Integer.parseInt(received);
-                  }catch(Exception e){
-                     displayMessage(received);
+                  }catch(NumberFormatException e){
+                     // Didn't received a location, assumes it is a key to save the game
+                     String[] receivedParts = received.split("-");
+                     if(receivedParts[0].equals("s")){
+                        saveGame(receivedParts[1], playerNumber);
+                     }else if(receivedParts[0].equals("l")){
+                        loadGame(receivedParts[1], playerNumber);
+                     }
                      continue;
                   }
                }
@@ -333,8 +430,10 @@ public class TicTacToeServer extends JFrame
                } // end else
             } // end while
             
-            // After the first player reachs a victory condition, the game ends
-            endGame(playerNumber);
+            if(isGameOver()){
+               // After the first player reachs a victory condition, the game ends
+               endGame(playerNumber);
+            }
 
          } // end try
          finally

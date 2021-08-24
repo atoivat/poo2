@@ -35,6 +35,7 @@ public class TicTacToeClient extends JFrame implements Runnable
    private JPanel boardPanel; // panel for tic-tac-toe board
    private JPanel panel2; // panel to hold board
    private JButton saveGameButton; // button to save game
+   private JButton loadGameButton; // button to load game
    private Square[][] board; // tic-tac-toe board
    private Square currentSquare; // current square
    private Socket connection; // connection to server
@@ -80,14 +81,30 @@ public class TicTacToeClient extends JFrame implements Runnable
       add( panel2, BorderLayout.CENTER ); // add container panel
 
       saveGameButton = new JButton("SAVE");
-      saveGameButton.setBounds(220, 200, 100, 30);
+      saveGameButton.setBounds(0, 0, 100, 30);
       saveGameButton.addActionListener(new ActionListener(){
          public void actionPerformed(ActionEvent e){
             String in = JOptionPane.showInputDialog(panel2, "Insert game key:", "SAVE", JOptionPane.DEFAULT_OPTION);
-            sendSave(in);
+            if(in != null){
+               sendSave(in);
+            }
          }
       });
       panel2.add(saveGameButton);
+      
+      loadGameButton = new JButton("LOAD");
+      loadGameButton.setBounds(0, 0, 100, 30);
+      loadGameButton.addActionListener(new ActionListener(){
+         public void actionPerformed(ActionEvent e){
+            String in = JOptionPane.showInputDialog(panel2, "Insert game key:", "LOAD", JOptionPane.DEFAULT_OPTION);
+            if(in != null){
+               sendLoad(in);
+            }
+         }
+      });
+      panel2.add(loadGameButton);
+
+
 
       setSize( 300, 225 ); // set size of window
       setVisible( true ); // show window
@@ -170,8 +187,32 @@ public class TicTacToeClient extends JFrame implements Runnable
          displayMessage( "Opponent moved. Your turn.\n" );
          myTurn = true; // now this client's turn
       } // end else if
-      else
+      else if ( message.equals( "Game loaded" ))
+      {
+         String gameState = input.nextLine();
+         String currentMark = input.nextLine();
+         String loadMessage = input.nextLine();
+         displayMessage( loadMessage );
+         
+         for(int location = 0; location < 9; location++){
+            int row = location / 3; // calculate row
+            int column = location % 3; // calculate column
+            if(gameState.charAt(location) == '-'){
+               setMark( board[ row ][ column ], "");
+            }else{
+               setMark( board[ row ][ column ], Character.toString(gameState.charAt(location)));
+            }
+         }
+         if(currentMark.equals(myMark)){
+            displayMessage( "\nYour turn.\n" );
+            myTurn = true;
+         }else{
+            displayMessage( "\nOpponent's turn.\n" );
+            myTurn = false;
+         }
+      }else{
          displayMessage( message + "\n" ); // display the message
+      }
    } // end method processMessage
 
    // manipulate displayArea in event-dispatch thread
@@ -225,10 +266,22 @@ public class TicTacToeClient extends JFrame implements Runnable
    {
       if ( myTurn )
       {
-         output.format( "%s\n", key);
+         output.format( "s-%s\n", key);
          output.flush();
       }else{
          displayMessage( "Wait for your turn to save!\n" );
+      }
+   }
+   
+   // send message to server indicating to load the game
+   public void sendLoad(String key)
+   {
+      if ( myTurn )
+      {
+         output.format( "l-%s\n", key);
+         output.flush();
+      }else{
+         displayMessage( "Wait for your turn to load!\n" );
       }
    }
 
