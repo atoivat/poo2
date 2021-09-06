@@ -23,44 +23,28 @@
 
 package poo2.p5;
 
-import lombok.Getter;
-import lombok.Setter;
+/**
+ * OrcKingdomFactory concrete factory.
+ */
+public class DwarfKingdomFactory implements KingdomFactory {
 
-@Getter
-@Setter
-public class Kingdom {
+  @Override
+  public Castle createCastle() {
+    return new DwarfCastle();
+  }
 
-  private King king;
-  private Castle castle;
-  private Army army;
-  private Wizard wizard;
+  @Override
+  public King createKing() {
+    return new DwarfKing();
+  }
 
-  /**
-   * The factory of kingdom factories.
-   */
-  public static class FactoryMaker {
+  @Override
+  public Army createArmy() {
+    return new DwarfArmy();
+  }
 
-    /**
-     * Enumeration for the different types of Kingdoms.
-     */
-    public enum KingdomType {
-      ELF, ORC, DWARF
-    }
-
-    /**
-     * The factory method to create KingdomFactory concrete objects.
-     */
-    public static KingdomFactory makeFactory(KingdomType type) {
-      switch (type) {
-        case ELF:
-          return new ElfKingdomFactory();
-        case ORC:
-          return new OrcKingdomFactory();
-        case DWARF:
-          return new DwarfKingdomFactory();
-        default:
-          throw new IllegalArgumentException("KingdomType not supported.");
-      }
-    }
+  @Override
+  public Wizard createWizard() {
+    return new DwarfWizard();
   }
 }

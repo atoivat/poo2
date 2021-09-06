@@ -73,6 +73,13 @@ public class App implements Runnable {
     LOGGER.info(kingdom.getArmy().getDescription());
     LOGGER.info(kingdom.getCastle().getDescription());
     LOGGER.info(kingdom.getKing().getDescription());
+    
+    LOGGER.info("dwarf kingdom");
+    createKingdom(Kingdom.FactoryMaker.KingdomType.DWARF);
+    LOGGER.info(kingdom.getWizard().getDescription());
+    LOGGER.info(kingdom.getArmy().getDescription());
+    LOGGER.info(kingdom.getCastle().getDescription());
+    LOGGER.info(kingdom.getKing().getDescription());
   }
 
   /**
