@@ -153,4 +153,23 @@ class AbstractFactoryTest {
     assertTrue(wizard instanceof OrcWizard);
     assertEquals(OrcWizard.DESCRIPTION, wizard.getDescription());
   }
+
+  @Test
+  void verifyDwarfKingdomCreation() {
+    app.createKingdom(Kingdom.FactoryMaker.KingdomType.DWARF);
+    final var kingdom = app.getKingdom();
+
+    final var king = kingdom.getKing();
+    final var castle = kingdom.getCastle();
+    final var army = kingdom.getArmy();
+    final var wizard = kingdom.getWizard();
+    assertTrue(king instanceof DwarfKing);
+    assertEquals(DwarfKing.DESCRIPTION, king.getDescription());
+    assertTrue(castle instanceof DwarfCastle);
+    assertEquals(DwarfCastle.DESCRIPTION, castle.getDescription());
+    assertTrue(army instanceof DwarfArmy);
+    assertEquals(DwarfArmy.DESCRIPTION, army.getDescription());
+    assertTrue(wizard instanceof DwarfWizard);
+    assertEquals(DwarfWizard.DESCRIPTION, wizard.getDescription());
+  }
 }
