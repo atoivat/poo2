@@ -33,6 +33,7 @@ public class Kingdom {
   private King king;
   private Castle castle;
   private Army army;
+  private Wizard wizard;
 
   /**
    * The factory of kingdom factories.

@@ -42,5 +42,10 @@ public class ElfKingdomFactory implements KingdomFactory {
   public Army createArmy() {
     return new ElfArmy();
   }
+  
+  @Override
+  public Wizard createWizard() {
+    return new ElfWizard();
+  }
 
 }

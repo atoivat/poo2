@@ -82,6 +82,21 @@ class AbstractFactoryTest {
   }
 
   @Test
+  void verifyWizardCreation() {
+    app.createKingdom(Kingdom.FactoryMaker.KingdomType.ELF);
+    final var kingdom = app.getKingdom();
+
+    final var elfWizard = kingdom.getWizard();
+    assertTrue(elfWizard instanceof ElfWizard);
+    assertEquals(ElfWizard.DESCRIPTION, elfWizard.getDescription());
+
+    app.createKingdom(Kingdom.FactoryMaker.KingdomType.ORC);
+    final var orcWizard = kingdom.getWizard();
+    assertTrue(orcWizard instanceof OrcWizard);
+    assertEquals(OrcWizard.DESCRIPTION, orcWizard.getDescription());
+  }
+
+  @Test
   void verifyElfKingdomCreation() {
     app.createKingdom(Kingdom.FactoryMaker.KingdomType.ELF);
     final var kingdom = app.getKingdom();
@@ -89,12 +104,15 @@ class AbstractFactoryTest {
     final var king = kingdom.getKing();
     final var castle = kingdom.getCastle();
     final var army = kingdom.getArmy();
+    final var wizard = kingdom.getWizard();
     assertTrue(king instanceof ElfKing);
     assertEquals(ElfKing.DESCRIPTION, king.getDescription());
     assertTrue(castle instanceof ElfCastle);
     assertEquals(ElfCastle.DESCRIPTION, castle.getDescription());
     assertTrue(army instanceof ElfArmy);
     assertEquals(ElfArmy.DESCRIPTION, army.getDescription());
+    assertTrue(wizard instanceof ElfWizard);
+    assertEquals(ElfWizard.DESCRIPTION, wizard.getDescription());
   }
 
   @Test
@@ -105,11 +123,14 @@ class AbstractFactoryTest {
     final var king = kingdom.getKing();
     final var castle = kingdom.getCastle();
     final var army = kingdom.getArmy();
+    final var wizard = kingdom.getWizard();
     assertTrue(king instanceof OrcKing);
     assertEquals(OrcKing.DESCRIPTION, king.getDescription());
     assertTrue(castle instanceof OrcCastle);
     assertEquals(OrcCastle.DESCRIPTION, castle.getDescription());
     assertTrue(army instanceof OrcArmy);
     assertEquals(OrcArmy.DESCRIPTION, army.getDescription());
+    assertTrue(wizard instanceof OrcWizard);
+    assertEquals(OrcWizard.DESCRIPTION, wizard.getDescription());
   }
 }
