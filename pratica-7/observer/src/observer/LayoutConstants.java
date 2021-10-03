@@ -39,4 +39,9 @@ public class LayoutConstants {
 				* noOfBars, LayoutConstants.graphHeight
 				+ LayoutConstants.yOffset);
 	}
+	
+	public static void paintPieChartOutline(Graphics g) {
+		g.setColor(Color.black);
+		g.drawString("Percentage of Students", LayoutConstants.xOffset - 220, 150);
+	}
 }

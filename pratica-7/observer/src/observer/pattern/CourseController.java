@@ -145,8 +145,12 @@ public class CourseController extends JPanel implements Observer, ChangeListener
 
 		CourseController controller = new CourseController(data);
 		BarChartObserver bar = new BarChartObserver(data);
+		PieChartObserver pie = new PieChartObserver(data);
 
-		JScrollPane scrollPane = new JScrollPane(bar,
+		JScrollPane scrollPaneBar = new JScrollPane(bar,
+				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		JScrollPane scrollPanePie = new JScrollPane(pie,
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
@@ -157,16 +161,21 @@ public class CourseController extends JPanel implements Observer, ChangeListener
 
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.fill = GridBagConstraints.BOTH;
-		constraints.weightx = 0.25;
+		constraints.weightx = 0.20;
 		constraints.weighty = 1.0;
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		frame.getContentPane().add(controller, constraints);
-		constraints.weightx = 0.5;
+		constraints.weightx = 0.40;
 		constraints.weighty = 1.0;
 		constraints.gridx = 1;
 		constraints.gridy = 0;
-		frame.getContentPane().add(scrollPane, constraints);
+		frame.getContentPane().add(scrollPaneBar, constraints);
+		constraints.weightx = 0.40;
+		constraints.weighty = 1.0;
+		constraints.gridx = 2;
+		constraints.gridy = 0;
+		frame.getContentPane().add(scrollPanePie, constraints);
 		frame.pack();
 		frame.setVisible(true);
 	}
