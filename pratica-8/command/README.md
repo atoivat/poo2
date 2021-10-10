@@ -36,7 +36,7 @@ Link direto da pasta desta atividade:
 
 
 
-![Screenshot_20211010_175602.png](:/8c208443002d44d6aa070774dab7a20b)
+![Screenshot_20211010_175602.png](./assets/Screenshot_20211010_175602.png)
 
 
 
